@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  cluj-airquality-service:
+    registry.urbreath.tech/cluj-airquality-service:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cluj-airquality-service
+    env_file:
+      - .env
+    restart: always
