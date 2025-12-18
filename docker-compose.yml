@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   cluj-airquality-service:
-    registry.urbreath.tech/cluj-airquality-service:0.0.1
+    image: registry.urbreath.tech/cluj-airquality-service:0.0.1
     build:
       context: .
       dockerfile: Dockerfile
