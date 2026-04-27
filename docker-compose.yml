@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   cluj-airquality-service:
-    image: registry.urbreath.tech/cluj-airquality-service:0.0.1
+    image: registry.urbreath.tech/cluj-airquality-service:0.0.2
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,3 +10,18 @@ services:
     env_file:
       - .env
     restart: always
+    volumes:
+      - ./state:/app/state
+    healthcheck:
+      test:
+        - "CMD"
+        - "python"
+        - "-c"
+        - |
+          import os, time, sys
+          f = '/app/state/heartbeat'
+          sys.exit(0 if os.path.exists(f) and time.time() - os.path.getmtime(f) < 600 else 1)
+      interval: 120s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
